@@ -1,9 +1,12 @@
 ﻿
 using Aplicacion.Datos;
 using Dominio.Actores;
+using Dominio.ActoresDePeliculas;
 using Dominio.Directores;
 using Dominio.Generos;
+using Dominio.GenerosDePeliculas;
 using Dominio.Paises;
+using Dominio.Peliculas;
 using Dominio.Primitivos;
 
 namespace Infraestructura.Persistencia
@@ -17,6 +20,9 @@ namespace Infraestructura.Persistencia
         public DbSet<Pais> Pais { get; set; }
         public DbSet<Actor> Actor { get; set; }
         public DbSet<Director> Director { get; set; }
+        public DbSet<Pelicula> Pelicula { get; set; }
+        public DbSet<GeneroDePelicula> GeneroDePeliculas { get; set; }
+        public DbSet<ActorDePelicula> ActorDePeliculas { get; set; }
 
         public AplicacionContextoDb(DbContextOptions options, IPublisher publisher) : base(options)
         {

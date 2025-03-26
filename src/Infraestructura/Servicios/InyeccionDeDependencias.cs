@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Dominio.Paises;
 using Dominio.Actores;
 using Dominio.Directores;
+using Dominio.Peliculas;
 
 namespace Infraestructura.Servicios
 {
@@ -40,6 +41,7 @@ namespace Infraestructura.Servicios
             servicios.AddScoped<IRepositorioPais, RepositorioPais>();
             servicios.AddScoped<IRepositorioActor, RepositorioActor>();
             servicios.AddScoped<IRepositorioDirector, RepositorioDirector>();
+            servicios.AddScoped<IRepositorioPelicula, RepositorioPelicula>();
 
             return servicios;
         }
