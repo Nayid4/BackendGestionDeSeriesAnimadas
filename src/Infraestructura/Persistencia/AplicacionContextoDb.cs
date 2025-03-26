@@ -1,6 +1,7 @@
 ﻿
 using Aplicacion.Datos;
 using Dominio.Generos;
+using Dominio.Paises;
 using Dominio.Primitivos;
 
 namespace Infraestructura.Persistencia
@@ -11,6 +12,7 @@ namespace Infraestructura.Persistencia
         private readonly IPublisher _publisher;
 
         public DbSet<Genero> Genero { get; set; }
+        public DbSet<Pais> Pais { get; set; }
 
         public AplicacionContextoDb(DbContextOptions options, IPublisher publisher) : base(options)
         {

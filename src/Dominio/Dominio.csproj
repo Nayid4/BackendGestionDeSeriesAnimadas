@@ -24,7 +24,6 @@
     <Folder Include="Directores\" />
     <Folder Include="Actores\" />
     <Folder Include="Peliculas\" />
-    <Folder Include="Paises\" />
   </ItemGroup>
 
 </Project>
