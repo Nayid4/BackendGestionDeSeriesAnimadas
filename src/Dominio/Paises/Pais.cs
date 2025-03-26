@@ -9,12 +9,15 @@ namespace Dominio.Paises
 {
     public sealed class Pais : EntidadGenerica<IdPais>
     {
+        public string Nombre { get; private set; } = string.Empty;
+
         public Pais()
         {
         }
 
-        public Pais(IdPais id, string nombre) : base(id, nombre)
+        public Pais(IdPais id, string nombre) : base(id)
         {
+            Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
         }
 
         public void Actualizar(string nombre)

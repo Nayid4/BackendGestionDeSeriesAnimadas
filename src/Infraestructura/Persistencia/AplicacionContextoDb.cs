@@ -1,5 +1,7 @@
 ﻿
 using Aplicacion.Datos;
+using Dominio.Actores;
+using Dominio.Directores;
 using Dominio.Generos;
 using Dominio.Paises;
 using Dominio.Primitivos;
@@ -13,6 +15,8 @@ namespace Infraestructura.Persistencia
 
         public DbSet<Genero> Genero { get; set; }
         public DbSet<Pais> Pais { get; set; }
+        public DbSet<Actor> Actor { get; set; }
+        public DbSet<Director> Director { get; set; }
 
         public AplicacionContextoDb(DbContextOptions options, IPublisher publisher) : base(options)
         {
