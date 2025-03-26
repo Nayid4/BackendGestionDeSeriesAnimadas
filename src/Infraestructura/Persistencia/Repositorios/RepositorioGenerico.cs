@@ -2,7 +2,7 @@
 using Infraestructura.Persistencia;
 using Microsoft.AspNetCore.Authentication;
 
-namespace Infrastructura.Persistencia.Repositorios
+namespace Infraestructura.Persistencia.Repositorios
 {
     public class RepositorioGenerico<TID, T> : IRepositorioGenerico<TID, T>
         where TID : IIdGenerico

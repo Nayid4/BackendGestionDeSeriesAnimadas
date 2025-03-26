@@ -9,6 +9,7 @@ using Dominio.Paises;
 using Dominio.Actores;
 using Dominio.Directores;
 using Dominio.Peliculas;
+using Dominio.Usuarios;
 
 namespace Infraestructura.Servicios
 {
@@ -42,6 +43,7 @@ namespace Infraestructura.Servicios
             servicios.AddScoped<IRepositorioActor, RepositorioActor>();
             servicios.AddScoped<IRepositorioDirector, RepositorioDirector>();
             servicios.AddScoped<IRepositorioPelicula, RepositorioPelicula>();
+            servicios.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
 
             return servicios;
         }

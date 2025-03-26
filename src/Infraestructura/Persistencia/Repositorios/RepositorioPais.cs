@@ -1,5 +1,5 @@
 ﻿using Dominio.Paises;
-using Infrastructura.Persistencia.Repositorios;
+using Infraestructura.Persistencia.Repositorios;
 using System;
 using System.Collections.Generic;
 using System.Linq;

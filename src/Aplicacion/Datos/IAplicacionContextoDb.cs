@@ -6,6 +6,7 @@ using Dominio.Generos;
 using Dominio.GenerosDePeliculas;
 using Dominio.Paises;
 using Dominio.Peliculas;
+using Dominio.Usuarios;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aplicacion.Datos
@@ -19,6 +20,7 @@ namespace Aplicacion.Datos
         public DbSet<Pelicula> Pelicula { get; set; }
         public DbSet<GeneroDePelicula> GeneroDePeliculas { get; set; }
         public DbSet<ActorDePelicula> ActorDePeliculas { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

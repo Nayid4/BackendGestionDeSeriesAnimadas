@@ -1,5 +1,5 @@
 ﻿using Dominio.Peliculas;
-using Infrastructura.Persistencia.Repositorios;
+using Infraestructura.Persistencia.Repositorios;
 
 namespace Infraestructura.Persistencia.Repositorios
 {
