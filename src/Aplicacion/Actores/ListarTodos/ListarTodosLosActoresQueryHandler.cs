@@ -1,11 +1,6 @@
 ﻿using Aplicacion.Autores.Comun;
-using Aplicacion.Directores.Comun;
-using Aplicacion.Generos.Comun;
-using Aplicacion.Paises.Comun;
 using Dominio.Actores;
-using Dominio.Directores;
 using Dominio.Paises;
-using System.IO;
 
 namespace Aplicacion.Actores.ListarTodos
 {
