@@ -32,7 +32,7 @@ namespace Aplicacion.Directores.Actualizar
 
             director.Actualizar(comando.Nombre, comando.Apellido, pais.Id);
 
-            _repositorioPais.Actualizar(pais);
+            _repositorioDirector.Actualizar(director);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

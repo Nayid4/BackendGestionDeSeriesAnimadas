@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Actores\" />
     <Folder Include="Peliculas\" />
     <Folder Include="Usuarios\" />
   </ItemGroup>
