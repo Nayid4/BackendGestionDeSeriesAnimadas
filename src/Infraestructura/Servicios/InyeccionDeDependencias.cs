@@ -38,8 +38,8 @@ namespace Infraestructura.Servicios
             servicios.AddScoped<IUnitOfWork>(sp =>
                 sp.GetRequiredService<AplicacionContextoDb>());
 
-            servicios.AddScoped<IRepositorioGenero, RepositorioGenero>();
-            servicios.AddScoped<IRepositorioPais, RepositorioPais>();
+            servicios.AddScoped<Dominio.Generos.IRepositorioGenero, RepositorioGenero>();
+            servicios.AddScoped<Dominio.Paises.IRepositorioPais, RepositorioPais>();
             servicios.AddScoped<IRepositorioActor, RepositorioActor>();
             servicios.AddScoped<IRepositorioDirector, RepositorioDirector>();
             servicios.AddScoped<IRepositorioPelicula, RepositorioPelicula>();

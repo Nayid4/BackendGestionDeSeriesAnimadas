@@ -13,5 +13,10 @@ namespace Infraestructura.Persistencia.Repositorios
         public RepositorioPais(AplicacionContextoDb contexto) : base(contexto)
         {
         }
+
+        public async Task<Pais?> ListarPorNombre(string nombre)
+        {
+            return await _dbSet.FirstOrDefaultAsync(p => p.Nombre == nombre);
+        }
     }
 }

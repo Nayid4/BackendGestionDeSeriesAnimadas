@@ -1,4 +1,5 @@
 ﻿using Dominio.Genericos;
+using Dominio.Generos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace Dominio.Paises
 {
     public interface IRepositorioPais : IRepositorioGenerico<IdPais, Pais>
     {
+        Task<Pais?> ListarPorNombre(string nombre);
     }
 }

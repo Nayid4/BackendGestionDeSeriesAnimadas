@@ -13,8 +13,8 @@ namespace Aplicacion.Datos
 {
     public interface IAplicacionContextoDb
     {
-        public DbSet<Genero> Genero { get; set; }
-        public DbSet<Pais> Pais { get; set; }
+        public DbSet<Dominio.Generos.Genero> Genero { get; set; }
+        public DbSet<Dominio.Paises.Pais> Pais { get; set; }
         public DbSet<Actor> Actor {  get; set; }
         public DbSet<Director> Director { get; set; }
         public DbSet<Pelicula> Pelicula { get; set; }
