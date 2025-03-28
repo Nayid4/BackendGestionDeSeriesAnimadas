@@ -1,4 +1,4 @@
-﻿using Aplicacion.Autores.Comun;
+﻿using Aplicacion.Actores.Comun;
 using Dominio.Actores;
 using Dominio.Paises;
 

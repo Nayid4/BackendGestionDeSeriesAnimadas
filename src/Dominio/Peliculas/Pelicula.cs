@@ -66,7 +66,7 @@ namespace Dominio.Peliculas
             }
         }
 
-        public void ActualizarGeneros(IEnumerable<GeneroDePelicula> nuevosGeneros)
+        public void ActualizarGeneros(List<GeneroDePelicula> nuevosGeneros)
         {
             var generosARemover = _generos.Except(nuevosGeneros).ToList();
             var generosAAgregar = nuevosGeneros.Except(_generos).ToList();
@@ -99,7 +99,7 @@ namespace Dominio.Peliculas
             }
         }
 
-        public void ActualizarActores(IEnumerable<ActorDePelicula> nuevosActores)
+        public void ActualizarActores(List<ActorDePelicula> nuevosActores)
         {
             var actoresARemover = _actores.Except(nuevosActores).ToList();
             var actoresAAgregar = nuevosActores.Except(_actores).ToList();

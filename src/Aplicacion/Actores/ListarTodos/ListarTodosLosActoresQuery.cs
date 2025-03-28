@@ -1,5 +1,5 @@
 ﻿
-using Aplicacion.Autores.Comun;
+using Aplicacion.Actores.Comun;
 
 namespace Aplicacion.Actores.ListarTodos
 {
