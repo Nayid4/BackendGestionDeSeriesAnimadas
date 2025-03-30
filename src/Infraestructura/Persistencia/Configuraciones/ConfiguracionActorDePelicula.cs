@@ -32,17 +32,21 @@ namespace Infraestructura.Persistencia.Configuraciones
                 valor => new IdPelicula(valor))
                 .IsRequired();
 
-            builder.HasOne<Actor>()
+            builder.HasOne(t => t.Actor)
                 .WithMany()
-                .HasForeignKey(t => t.IdActor);
+                .HasForeignKey(t => t.IdActor)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne<Pelicula>()
                 .WithMany()
-                .HasForeignKey(t => t.IdPelicula);
+                .HasForeignKey(t => t.IdPelicula)
+                .OnDelete(DeleteBehavior.Cascade); 
 
-            builder.Property(t => t.FechaDeCreacion);
+            builder.Property(t => t.FechaDeCreacion)
+                .IsRequired();
 
-            builder.Property(t => t.FechaDeActualizacion);
+            builder.Property(t => t.FechaDeActualizacion)
+                .IsRequired();
         }
     }
 }

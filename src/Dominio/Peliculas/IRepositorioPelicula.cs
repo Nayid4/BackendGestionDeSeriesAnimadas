@@ -9,5 +9,6 @@ namespace Dominio.Peliculas
 {
     public interface IRepositorioPelicula : IRepositorioGenerico<IdPelicula, Pelicula>
     {
+        IQueryable<Pelicula> ListarTodasLasPeliculas();
     }
 }

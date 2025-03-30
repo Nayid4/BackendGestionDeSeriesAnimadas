@@ -23,9 +23,11 @@ namespace Infraestructura.Persistencia.Configuraciones
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.Property(t => t.FechaDeCreacion);
+            builder.Property(t => t.FechaDeCreacion)
+                .IsRequired();
 
-            builder.Property(t => t.FechaDeActualizacion);
+            builder.Property(t => t.FechaDeActualizacion)
+                .IsRequired();
         }
     }
 }

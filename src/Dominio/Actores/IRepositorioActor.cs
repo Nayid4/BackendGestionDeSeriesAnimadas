@@ -9,5 +9,6 @@ namespace Dominio.Actores
 {
     public interface IRepositorioActor : IRepositorioGenerico<IdActor, Actor>
     {
+        IQueryable<Actor> ListarTodosLosActores();
     }
 }

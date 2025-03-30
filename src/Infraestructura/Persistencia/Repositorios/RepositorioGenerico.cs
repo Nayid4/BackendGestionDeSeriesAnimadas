@@ -2,7 +2,7 @@
 using Infraestructura.Persistencia;
 using Microsoft.AspNetCore.Authentication;
 
-namespace Infrastructura.Persistencia.Repositorios
+namespace Infraestructura.Persistencia.Repositorios
 {
     public class RepositorioGenerico<TID, T> : IRepositorioGenerico<TID, T>
         where TID : IIdGenerico
@@ -25,6 +25,6 @@ namespace Infrastructura.Persistencia.Repositorios
 
         public async Task<T?> ListarPorId(TID id) => await _dbSet.FindAsync(id);
 
-        public async Task<List<T>> ListarTodos() => await _dbSet.OrderBy(t => t.FechaDeCreacion).ToListAsync();
+        public IQueryable<T> ListarTodos() => _dbSet.OrderBy(t => t.FechaDeCreacion);
     }
 }

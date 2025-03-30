@@ -33,13 +33,17 @@ namespace Infraestructura.Persistencia.Configuraciones
                 valor => new IdPais(valor))
                 .IsRequired();
 
-            builder.HasOne<Pais>()
+            builder.HasOne(a => a.Pais)
                 .WithMany()
-                .HasForeignKey(pais => pais.IdPais);
+                .HasForeignKey(a => a.IdPais)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(t => t.FechaDeCreacion);
 
-            builder.Property(t => t.FechaDeActualizacion);
+            builder.Property(t => t.FechaDeCreacion)
+                .IsRequired();
+
+            builder.Property(t => t.FechaDeActualizacion)
+                .IsRequired();
         }
     }
 }
