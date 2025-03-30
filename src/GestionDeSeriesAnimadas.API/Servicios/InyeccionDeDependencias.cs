@@ -37,7 +37,11 @@ namespace GestionDeSeriesAnimadas.API.Servicios
                 options.AddPolicy("web", policyBuilder =>
                 {
                     policyBuilder.WithOrigins(
-                        "http://localhost:4200"
+                        "http://localhost:4200",
+                        "https://localhost:4200",
+                        "https://localhost:8500",
+                        "https://localhost:80",
+                        "https://frontend-gestion-de-series-animadas.vercel.app"
                         );
                     policyBuilder.AllowAnyHeader();
                     policyBuilder.AllowAnyMethod();

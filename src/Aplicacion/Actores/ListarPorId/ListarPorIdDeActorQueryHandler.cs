@@ -1,5 +1,4 @@
 ﻿using Aplicacion.Actores.Comun;
-using Aplicacion.Directores.Comun;
 using Dominio.Actores;
 using Dominio.Directores;
 using Dominio.Paises;
