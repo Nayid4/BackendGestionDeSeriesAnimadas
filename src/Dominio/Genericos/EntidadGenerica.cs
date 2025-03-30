@@ -7,7 +7,6 @@ namespace Dominio.Genericos
     {
         
         public TID Id { get; protected set; } = default!;
-        public string Nombre { get; protected set; } = string.Empty;
         public DateTime FechaDeCreacion { get; protected set; }
         public DateTime FechaDeActualizacion { get; protected set; }
 
@@ -15,10 +14,9 @@ namespace Dominio.Genericos
         {
         }
 
-        public EntidadGenerica(TID id, string nombre)
+        public EntidadGenerica(TID id)
         {
             Id = id ?? throw new ArgumentNullException(nameof(id));
-            Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
             FechaDeCreacion = DateTime.Now;
             FechaDeActualizacion = DateTime.Now;
         }

@@ -3,9 +3,13 @@ using Dominio.Generos;
 using Dominio.Primitivos;
 using Infraestructura.Persistencia.Repositorios;
 using Infraestructura.Persistencia;
-using Infrastructura.Persistencia.Repositorios;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Dominio.Paises;
+using Dominio.Actores;
+using Dominio.Directores;
+using Dominio.Peliculas;
+using Dominio.Usuarios;
 
 namespace Infraestructura.Servicios
 {
@@ -34,7 +38,12 @@ namespace Infraestructura.Servicios
             servicios.AddScoped<IUnitOfWork>(sp =>
                 sp.GetRequiredService<AplicacionContextoDb>());
 
-            servicios.AddScoped<IRepositorioGenero, RepositorioGenero>();
+            servicios.AddScoped<Dominio.Generos.IRepositorioGenero, RepositorioGenero>();
+            servicios.AddScoped<Dominio.Paises.IRepositorioPais, RepositorioPais>();
+            servicios.AddScoped<IRepositorioActor, RepositorioActor>();
+            servicios.AddScoped<IRepositorioDirector, RepositorioDirector>();
+            servicios.AddScoped<IRepositorioPelicula, RepositorioPelicula>();
+            servicios.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
 
             return servicios;
         }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using GestionDeSeriesAnimadas.API.Comun.Http;
 
-namespace GestionDeSeriesAnimadas.API.Controllers
+namespace GestionDeSeriesAnimadas.API.Controladores
 {
     [ApiController]
     [EnableCors("web")]

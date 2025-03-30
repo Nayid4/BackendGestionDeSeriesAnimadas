@@ -1,10 +1,17 @@
 ﻿
+using Aplicacion.Generos.Actualizar;
+using Aplicacion.Generos.Crear;
+using Aplicacion.Generos.Eliminar;
+using Aplicacion.Generos.ListarConFiltros;
+using Aplicacion.Generos.ListarPorId;
+using Aplicacion.Generos.ListarTodos;
 using Microsoft.AspNetCore.Authorization;
 
-namespace GestionDeSeriesAnimadas.API.Controllers
+namespace GestionDeSeriesAnimadas.API.Controladores
 
 {
     [Route("genero")]
+    [Authorize]
     public class ControladorGenero : ApiController
     {
         private readonly ISender _mediator;
@@ -13,11 +20,11 @@ namespace GestionDeSeriesAnimadas.API.Controllers
         {
             _mediator = mediator;
         }
-        /*
+
         [HttpGet]
         public async Task<IActionResult> ListarTodos()
         {
-            var resultadosDeListarTodos = await _mediator.Send(new ListarTodasLasListasDeTareasQuery());
+            var resultadosDeListarTodos = await _mediator.Send(new ListarTodosLosGenerosQuery());
 
             return resultadosDeListarTodos.Match(
                 resp => Ok(resp),
@@ -25,10 +32,20 @@ namespace GestionDeSeriesAnimadas.API.Controllers
             );
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ListarPorId(Guid id)
+        {
+            var resultadosDeListarPorId = await _mediator.Send(new ListarPorIdDeGeneroQuery(id));
+
+            return resultadosDeListarPorId.Match(
+                resp => Ok(resp),
+                errores => Problem(errores)
+            );
+        }
+
 
         [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Crear([FromBody] CrearListaDeTareasCommand comando)
+        public async Task<IActionResult> Crear([FromBody] CrearGeneroCommand comando)
         {
             var resultadoDeCrear = await _mediator.Send(comando);
 
@@ -41,7 +58,7 @@ namespace GestionDeSeriesAnimadas.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Eliminar(Guid id)
         {
-            var resultadoDeEliminar = await _mediator.Send(new EliminarListaDeTareasCommand(id));
+            var resultadoDeEliminar = await _mediator.Send(new EliminarGeneroCommand(id));
 
             return resultadoDeEliminar.Match(
                 resp => NoContent(),
@@ -50,13 +67,13 @@ namespace GestionDeSeriesAnimadas.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Actualizar(Guid id, [FromBody] ActualizarListaDeTareasCommand comando)
+        public async Task<IActionResult> Actualizar(Guid id, [FromBody] ActualizarGeneroCommand comando)
         {
             if (comando.Id != id)
             {
                 List<Error> errores = new()
                 {
-                    Error.Validation("ListaDeTarea.ActualizacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
+                    Error.Validation("Genero.ActualizacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
                 };
 
                 return Problem(errores);
@@ -70,110 +87,15 @@ namespace GestionDeSeriesAnimadas.API.Controllers
             );
         }
 
-        [HttpPost("filtrar-por-estado/{id}")]
-        public async Task<IActionResult> FiltrarPorEstado(Guid id, [FromBody] FiltrarTareasPorEstadoDeListaDeTareasQuery comando)
+        [HttpPost("lista-paginada")]
+        public async Task<IActionResult> ListarPorFiltro([FromBody] ListarConFiltrosGeneroQuery comando)
         {
-            if (comando.IdListaDeTareas != id)
-            {
-                List<Error> errores = new()
-                {
-                    Error.Validation("ListaDeTarea.AgregacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
-                };
+            var resultadoDeFiltrar = await _mediator.Send(comando);
 
-                return Problem(errores);
-            }
-
-            var resultadoDeFiltrarPorEstado = await _mediator.Send(comando);
-
-            return resultadoDeFiltrarPorEstado.Match(
+            return resultadoDeFiltrar.Match(
                 resp => Ok(resp),
                 errores => Problem(errores)
             );
         }
-
-        [HttpPost("agregar-tarea/{id}")]
-        public async Task<IActionResult> AgregarTarea(Guid id, [FromBody] AgregarTareaAListaDeTareasCommand comando)
-        {
-            if (comando.IdListaDeTareas != id)
-            {
-                List<Error> errores = new()
-                {
-                    Error.Validation("ListaDeTarea.AgregacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
-                };
-
-                return Problem(errores);
-            }
-
-            var resultadoDeAgregarTarea = await _mediator.Send(comando);
-
-            return resultadoDeAgregarTarea.Match(
-                resp => NoContent(),
-                errores => Problem(errores)
-            );
-        }
-
-        [HttpPost("eliminar-tarea/{id}")]
-        public async Task<IActionResult> EliminarTarea(Guid id, [FromBody] EliminarTareaDeListaDeTareasCommand comando)
-        {
-            if (comando.IdListaDeTareas != id)
-            {
-                List<Error> errores = new()
-                {
-                    Error.Validation("ListaDeTarea.EliminacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
-                };
-
-                return Problem(errores);
-            }
-
-            var resultadoDeEliminarTarea = await _mediator.Send(comando);
-
-            return resultadoDeEliminarTarea.Match(
-                resp => NoContent(),
-                errores => Problem(errores)
-            );
-        }
-
-        [HttpPost("actualizar-tarea/{id}")]
-        public async Task<IActionResult> ActualizarTarea(Guid id, [FromBody] ActualizarTareaDeListaDeTareasCommand comando)
-        {
-            if (comando.IdListaDeTareas != id)
-            {
-                List<Error> errores = new()
-                {
-                    Error.Validation("ListaDeTarea.ActualizacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
-                };
-
-                return Problem(errores);
-            }
-
-            var resultadoDeActulizarTarea = await _mediator.Send(comando);
-
-            return resultadoDeActulizarTarea.Match(
-                resp => NoContent(),
-                errores => Problem(errores)
-            );
-        }
-
-        [HttpPost("actualizar-estado-de-tarea/{id}")]
-        public async Task<IActionResult> ActualizarEstadoDeTarea(Guid id, [FromBody] ActualizarEstadoDeTareaDeListaDeTareasCommand comando)
-        {
-            if (comando.IdListaDeTareas != id)
-            {
-                List<Error> errores = new()
-                {
-                    Error.Validation("ListaDeTarea.ActualizacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
-                };
-
-                return Problem(errores);
-            }
-
-            var resultadoDeActulizarEstadoDeTarea = await _mediator.Send(comando);
-
-            return resultadoDeActulizarEstadoDeTarea.Match(
-                resp => NoContent(),
-                errores => Problem(errores)
-            );
-        }
-        */
     }
 }

@@ -9,13 +9,16 @@ namespace Dominio.Generos
 {
     public sealed class Genero : EntidadGenerica<IdGenero>
     {
+        public string Nombre { get; private set; } = string.Empty;
+
         public Genero()
         {
         }
 
         public Genero(IdGenero id, string nombre) 
-            : base(id, nombre)
+            : base(id)
         {
+            Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
         }
 
         public void Actualizar(string nombre)

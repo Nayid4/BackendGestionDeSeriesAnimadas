@@ -1,5 +1,6 @@
 ﻿using Aplicacion.comun.Behaviors;
 using Aplicacion.Servicios;
+using Aplicacion.Utilidades;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Servicios
@@ -20,6 +21,9 @@ namespace Application.Servicios
 
             servicios.AddValidatorsFromAssemblyContaining<ApplicationAssemblyReference>();
 
+            servicios.AddHttpContextAccessor();
+
+            servicios.AddScoped<IGestionToken, GestionToken>();
 
             return servicios;
         }

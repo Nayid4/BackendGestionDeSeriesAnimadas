@@ -37,6 +37,10 @@ app.UseHttpsRedirection();
 
 app.UseCors("web");
 
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.MapControllers();

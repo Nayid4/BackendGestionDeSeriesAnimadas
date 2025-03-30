@@ -1,8 +1,14 @@
 ﻿
 using Aplicacion.Datos;
+using Dominio.Actores;
+using Dominio.ActoresDePeliculas;
+using Dominio.Directores;
 using Dominio.Generos;
+using Dominio.GenerosDePeliculas;
 using Dominio.Paises;
+using Dominio.Peliculas;
 using Dominio.Primitivos;
+using Dominio.Usuarios;
 
 namespace Infraestructura.Persistencia
 {
@@ -11,8 +17,14 @@ namespace Infraestructura.Persistencia
 
         private readonly IPublisher _publisher;
 
-        public DbSet<Genero> Genero { get; set; }
-        public DbSet<Pais> Pais { get; set; }
+        public DbSet<Dominio.Generos.Genero> Genero { get; set; }
+        public DbSet<Dominio.Paises.Pais> Pais { get; set; }
+        public DbSet<Actor> Actor { get; set; }
+        public DbSet<Director> Director { get; set; }
+        public DbSet<Pelicula> Pelicula { get; set; }
+        public DbSet<GeneroDePelicula> GeneroDePeliculas { get; set; }
+        public DbSet<ActorDePelicula> ActorDePeliculas { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
 
         public AplicacionContextoDb(DbContextOptions options, IPublisher publisher) : base(options)
         {

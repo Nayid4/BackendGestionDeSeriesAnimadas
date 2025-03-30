@@ -1,5 +1,5 @@
 ﻿using Dominio.Paises;
-using Infrastructura.Persistencia.Repositorios;
+using Infraestructura.Persistencia.Repositorios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,11 @@ namespace Infraestructura.Persistencia.Repositorios
     {
         public RepositorioPais(AplicacionContextoDb contexto) : base(contexto)
         {
+        }
+
+        public async Task<Pais?> ListarPorNombre(string nombre)
+        {
+            return await _dbSet.FirstOrDefaultAsync(p => p.Nombre == nombre);
         }
     }
 }

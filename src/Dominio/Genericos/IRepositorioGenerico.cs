@@ -5,7 +5,7 @@ namespace Dominio.Genericos
         where TID : IIdGenerico
         where T : EntidadGenerica<TID>
     {
-        Task<List<T>> ListarTodos();
+        IQueryable<T> ListarTodos();
         Task<T?> ListarPorId(TID id);
         void Crear(T entidad);
         void Actualizar(T entidad);

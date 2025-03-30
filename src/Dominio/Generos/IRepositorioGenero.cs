@@ -9,5 +9,6 @@ namespace Dominio.Generos
 {
     public interface IRepositorioGenero : IRepositorioGenerico<IdGenero, Genero>
     {
+        Task<Genero?> ListarPorNombre(string nombre);
     }
 }
