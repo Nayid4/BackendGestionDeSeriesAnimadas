@@ -21,9 +21,7 @@ namespace GestionDeSeriesAnimadas.API.Servicios
                 options.AddPolicy("web", policyBuilder =>
                 {
                     policyBuilder.WithOrigins(
-                        "http://localhost:4200",
-                        "https://nayid4.github.io/FrontendGestionDeTareas",
-                        "https://nayid4.github.io"
+                        "http://localhost:4200"
                         );
                     policyBuilder.AllowAnyHeader();
                     policyBuilder.AllowAnyMethod();

@@ -1,21 +1,21 @@
 ﻿
-using Aplicacion.Generos.Actualizar;
-using Aplicacion.Generos.Crear;
-using Aplicacion.Generos.Eliminar;
-using Aplicacion.Generos.ListarPorId;
-using Aplicacion.Generos.ListarTodos;
+using Aplicacion.Actores.Actualizar;
+using Aplicacion.Actores.Crear;
+using Aplicacion.Actores.Eliminar;
+using Aplicacion.Actores.ListarPorId;
+using Aplicacion.Actores.ListarTodos;
+using GestionDeSeriesAnimadas.API.Controladores;
 using Microsoft.AspNetCore.Authorization;
 
 namespace GestionDeSeriesAnimadas.API.Controladores
-
 {
-    [Route("genero")]
+    [Route("actor")]
     [Authorize]
-    public class ControladorGenero : ApiController
+    public class ControladorActor : ApiController
     {
         private readonly ISender _mediator;
 
-        public ControladorGenero(ISender mediator)
+        public ControladorActor(ISender mediator)
         {
             _mediator = mediator;
         }
@@ -23,7 +23,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
         [HttpGet]
         public async Task<IActionResult> ListarTodos()
         {
-            var resultadosDeListarTodos = await _mediator.Send(new ListarTodosLosGenerosQuery());
+            var resultadosDeListarTodos = await _mediator.Send(new ListarTodosLosActoresQuery());
 
             return resultadosDeListarTodos.Match(
                 resp => Ok(resp),
@@ -34,7 +34,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
         [HttpGet("{id}")]
         public async Task<IActionResult> ListarPorId(Guid id)
         {
-            var resultadosDeListarPorId = await _mediator.Send(new ListarPorIdDeGeneroQuery(id));
+            var resultadosDeListarPorId = await _mediator.Send(new ListarPorIdDeActorQuery(id));
 
             return resultadosDeListarPorId.Match(
                 resp => Ok(resp),
@@ -44,7 +44,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
 
 
         [HttpPost]
-        public async Task<IActionResult> Crear([FromBody] CrearGeneroCommand comando)
+        public async Task<IActionResult> Crear([FromBody] CrearActorCommand comando)
         {
             var resultadoDeCrear = await _mediator.Send(comando);
 
@@ -57,7 +57,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
         [HttpDelete("{id}")]
         public async Task<IActionResult> Eliminar(Guid id)
         {
-            var resultadoDeEliminar = await _mediator.Send(new EliminarGeneroCommand(id));
+            var resultadoDeEliminar = await _mediator.Send(new EliminarActorCommand(id));
 
             return resultadoDeEliminar.Match(
                 resp => NoContent(),
@@ -66,7 +66,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Actualizar(Guid id, [FromBody] ActualizarGeneroCommand comando)
+        public async Task<IActionResult> Actualizar(Guid id, [FromBody] ActualizarActorCommand comando)
         {
             if (comando.Id != id)
             {

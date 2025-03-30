@@ -4,11 +4,6 @@ using Dominio.Directores;
 using Dominio.Generos;
 using Dominio.Paises;
 using Dominio.Peliculas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aplicacion.Peliculas.ListarTodos
 {
