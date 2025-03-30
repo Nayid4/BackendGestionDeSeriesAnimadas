@@ -1,8 +1,10 @@
 ﻿using Aplicacion.Directores.Comun;
 using Aplicacion.Generos.Comun;
 using Aplicacion.Paises.Comun;
+using Dominio.Actores;
 using Dominio.Directores;
 using Dominio.Paises;
+using Microsoft.EntityFrameworkCore;
 using System.IO;
 
 namespace Aplicacion.Directores.ListarTodos
@@ -20,26 +22,18 @@ namespace Aplicacion.Directores.ListarTodos
 
         public async Task<ErrorOr<IReadOnlyList<RespuestaDirector>>> Handle(ListarTodosLosDirectoresQuery request, CancellationToken cancellationToken)
         {
-            var directores = await _repositorioDirector.ListarTodos();
+            var directores = await _repositorioDirector
+                .ListarTodos()
+                .Include(a => a.Pais)
+                .ToListAsync(cancellationToken);
 
-            var respuestaDirectores = new List<RespuestaDirector>();
 
-            foreach (var director in directores)
-            {
-                if (await _repositorioPais.ListarPorId(director.IdPais) is not Pais pais)
-                {
-                    return Error.NotFound("Pais.NoEncontrado", "No se encontro el pais.");
-                }
-
-                var datosDirector = new RespuestaDirector(
+            var respuestaDirectores = directores.Select(director => new RespuestaDirector(
                     director.Id.Valor,
                     director.Nombre,
                     director.Apellido,
-                    pais.Nombre
-                );
-
-                respuestaDirectores.Add( datosDirector );
-            }
+                    director.Pais!.Nombre
+            )).ToList();
 
             return respuestaDirectores;
         }

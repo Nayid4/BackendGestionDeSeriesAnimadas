@@ -1,7 +1,9 @@
 ﻿
+using Aplicacion.Actores.ListarConFiltros;
 using Aplicacion.Directores.Actualizar;
 using Aplicacion.Directores.Crear;
 using Aplicacion.Directores.Eliminar;
+using Aplicacion.Directores.ListarConFiltros;
 using Aplicacion.Directores.ListarPorId;
 using Aplicacion.Directores.ListarTodos;
 using Microsoft.AspNetCore.Authorization;
@@ -81,6 +83,17 @@ namespace GestionDeSeriesAnimadas.API.Controladores
 
             return resultadoDeActualizarListaTarea.Match(
                 resp => NoContent(),
+                errores => Problem(errores)
+            );
+        }
+
+        [HttpPost("lista-paginada")]
+        public async Task<IActionResult> ListarPorFiltro([FromBody] ListarConFiltrosDirectorQuery comando)
+        {
+            var resultadoDeFiltrar = await _mediator.Send(comando);
+
+            return resultadoDeFiltrar.Match(
+                resp => Ok(resp),
                 errores => Problem(errores)
             );
         }

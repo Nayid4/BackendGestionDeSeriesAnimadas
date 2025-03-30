@@ -15,6 +15,7 @@ namespace Dominio.Personas
         public string Nombre { get; private set; } = string.Empty;
         public string Apellido { get; private set; } = string.Empty;
         public IdPais IdPais { get; private set; } = default!;
+        public Pais? Pais { get; private set; }
 
 
         public Persona()

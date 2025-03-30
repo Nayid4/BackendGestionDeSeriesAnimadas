@@ -13,5 +13,7 @@ namespace Infraestructura.Persistencia.Repositorios
         public RepositorioActor(AplicacionContextoDb contexto) : base(contexto)
         {
         }
+
+        public IQueryable<Actor> ListarTodosLosActores() => _dbSet.Include(t => t.Pais).OrderBy(t => t.FechaDeCreacion);
     }
 }

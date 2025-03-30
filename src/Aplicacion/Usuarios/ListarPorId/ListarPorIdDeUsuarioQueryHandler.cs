@@ -1,8 +1,4 @@
-﻿using Aplicacion.Autores.Comun;
-using Aplicacion.Directores.Comun;
-using Aplicacion.Usuarios.Comun;
-using Dominio.Actores;
-using Dominio.Directores;
+﻿using Aplicacion.Usuarios.Comun;
 using Dominio.Paises;
 using Dominio.Usuarios;
 
@@ -31,8 +27,7 @@ namespace Aplicacion.Usuarios.ListarPorId
                 usuario.Id.Valor, 
                 usuario.Nombre, 
                 usuario.Apellido, 
-                usuario.NombreDeUsuario, 
-                usuario.Contrasena
+                usuario.NombreDeUsuario
             );
 
             return respuesta;

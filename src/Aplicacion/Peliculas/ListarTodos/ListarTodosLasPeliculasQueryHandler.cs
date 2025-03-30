@@ -4,6 +4,7 @@ using Dominio.Directores;
 using Dominio.Generos;
 using Dominio.Paises;
 using Dominio.Peliculas;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aplicacion.Peliculas.ListarTodos
 {
@@ -26,76 +27,29 @@ namespace Aplicacion.Peliculas.ListarTodos
 
         public async Task<ErrorOr<IReadOnlyList<RespuestaPelicula>>> Handle(ListarTodosLasPeliculasQuery request, CancellationToken cancellationToken)
         {
-            IReadOnlyList<Pelicula> peliculas = await _repositorioPelicula.ListarTodos();
+            var peliculas = await _repositorioPelicula
+                .ListarTodasLasPeliculas()
+                .Select(pelicula =>new RespuestaPelicula(
+                        pelicula.Id.Valor,
+                        new RespuestaPais(pelicula.Id.Valor, pelicula.Pais!.Nombre),
+                        new RespuestaDirector(pelicula.Id.Valor, pelicula.Director!.Nombre),
+                        pelicula.Titulo,
+                        pelicula.Resena,
+                        pelicula.ImagenDePortada,
+                        pelicula.CodigoDeTrailerEnYoutube,
+                        pelicula.Actores.Select(
+                            actor => new RespuestaActor(actor.IdActor.Valor, actor.Actor.Nombre)
+                        ).ToList(),
+                        pelicula.Generos.Select(
+                            genero => new RespuestaGenero(genero.IdGenero.Valor, genero.Genero.Nombre)
+                        ).ToList()
+                    )
 
-            var respuestaListaDePeliculas = new List<RespuestaPelicula>();
+                ).ToListAsync(cancellationToken);
 
-            foreach (var pelicula in peliculas)
-            {
-                var listaActores = new List<RespuestaActor>();
 
-                foreach (var actor in pelicula.Actores)
-                {
-                    if (await _repositorioActor.ListarPorId(actor.IdActor) is not Actor actor2)
-                    {
-                        return Error.NotFound("Actor.NoEncontrado", "No se encontro el actor.");
-                    }
-
-                    var actorDePelicula = new RespuestaActor(
-                        actor2.Id.Valor,
-                        actor2.Nombre
-                    );
-
-                    listaActores.Add(actorDePelicula);
-                }
-
-                var listaGeneros = new List<RespuestaGenero>();
-
-                foreach (var genero in pelicula.Generos)
-                {
-                    if (await _repositorioGenero.ListarPorId(genero.IdGenero) is not Genero genero2)
-                    {
-                        return Error.NotFound("Genero.NoEncontrado", "No se encontro el genero.");
-                    }
-
-                    var generoDePelicula = new RespuestaGenero(
-                        genero2.Id.Valor,
-                        genero2.Nombre
-                    );
-                    listaGeneros.Add(generoDePelicula);
-                }
-
-                if (await _repositorioPais.ListarPorId(pelicula.IdPais) is not Pais pais)
-                {
-                    return Error.NotFound("Pais.NoEncontrada", "No se econtró el pais.");
-                }
-
-                if (await _repositorioDirector.ListarPorId(pelicula.IdDirector) is not Director director)
-                {
-                    return Error.NotFound("Director.NoEncontrado", "No se econtró el director.");
-                }
-
-                var respuesta = new RespuestaPelicula(
-                    pelicula.Id.Valor,
-                    new RespuestaPais(
-                        pais.Id.Valor,
-                        pais.Nombre
-                    ),
-                    new RespuestaDirector(
-                        director.Id.Valor,
-                        director.Nombre
-                    ),
-                    pelicula.Titulo,
-                    pelicula.Resena,
-                    pelicula.ImagenDePortada,
-                    pelicula.CodigoDeTrailerEnYoutube,
-                    listaActores,
-                    listaGeneros
-
-                );
-            }
-
-            return respuestaListaDePeliculas;
+            return peliculas;
         }
+
     }
 }

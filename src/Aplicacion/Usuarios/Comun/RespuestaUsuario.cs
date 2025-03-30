@@ -10,7 +10,6 @@ namespace Aplicacion.Usuarios.Comun
         Guid Id,
         string Nombre,
         string Apellido,
-        string NombreDeUsuario,
-        string Contrasena
+        string NombreDeUsuario
     );
 }

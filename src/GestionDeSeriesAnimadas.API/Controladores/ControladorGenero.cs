@@ -2,6 +2,7 @@
 using Aplicacion.Generos.Actualizar;
 using Aplicacion.Generos.Crear;
 using Aplicacion.Generos.Eliminar;
+using Aplicacion.Generos.ListarConFiltros;
 using Aplicacion.Generos.ListarPorId;
 using Aplicacion.Generos.ListarTodos;
 using Microsoft.AspNetCore.Authorization;
@@ -82,6 +83,17 @@ namespace GestionDeSeriesAnimadas.API.Controladores
 
             return resultadoDeActualizarListaTarea.Match(
                 resp => NoContent(),
+                errores => Problem(errores)
+            );
+        }
+
+        [HttpPost("lista-paginada")]
+        public async Task<IActionResult> ListarPorFiltro([FromBody] ListarConFiltrosGeneroQuery comando)
+        {
+            var resultadoDeFiltrar = await _mediator.Send(comando);
+
+            return resultadoDeFiltrar.Match(
+                resp => Ok(resp),
                 errores => Problem(errores)
             );
         }

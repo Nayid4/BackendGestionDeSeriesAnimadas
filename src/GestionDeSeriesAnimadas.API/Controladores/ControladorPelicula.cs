@@ -2,8 +2,10 @@
 using Aplicacion.Peliculas.Actualizar;
 using Aplicacion.Peliculas.Crear;
 using Aplicacion.Peliculas.Eliminar;
+using Aplicacion.Peliculas.ListarConFiltros;
 using Aplicacion.Peliculas.ListarPorId;
 using Aplicacion.Peliculas.ListarTodos;
+using Aplicacion.Usuarios.ListarConFiltros;
 using GestionDeSeriesAnimadas.API.Controladores;
 using Microsoft.AspNetCore.Authorization;
 
@@ -84,6 +86,17 @@ namespace GestionDeSeriesAnimadas.API.Controladores
 
             return resultadoDeActualizarListaTarea.Match(
                 resp => NoContent(),
+                errores => Problem(errores)
+            );
+        }
+
+        [HttpPost("lista-paginada")]
+        public async Task<IActionResult> ListarPorFiltro([FromBody] ListarConFiltrosPeliculaQuery comando)
+        {
+            var resultadoDeFiltrar = await _mediator.Send(comando);
+
+            return resultadoDeFiltrar.Match(
+                resp => Ok(resp),
                 errores => Problem(errores)
             );
         }

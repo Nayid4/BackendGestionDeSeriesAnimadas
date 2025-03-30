@@ -22,6 +22,9 @@ namespace Dominio.Peliculas
         public string ImagenDePortada { get; private set; } = string.Empty;
         public string CodigoDeTrailerEnYoutube { get; private set; } = string.Empty;
 
+        public Pais? Pais { get; private set; }
+        public Director? Director { get; private set; }
+
         public IReadOnlyCollection<GeneroDePelicula> Generos => _generos;
         public IReadOnlyCollection<ActorDePelicula> Actores => _actores;
 

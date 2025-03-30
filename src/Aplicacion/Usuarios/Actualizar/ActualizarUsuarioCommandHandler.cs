@@ -27,6 +27,10 @@ namespace Aplicacion.Usuarios.Actualizar
                 return Error.NotFound("Usuario.NoEncontrado", "No se encontro el usuario.");
             }
 
+            if (await _repositorioUsuario.ListarPorNombreDeUsuario(comando.NombreDeUsuario) is Usuario usuario2 && !usuario.NombreDeUsuario.Equals(comando.NombreDeUsuario))
+            {
+                return Error.Conflict("Usuario.Encontrado", "Ya esta en uso ese nombre de usuario.");
+            }
 
             usuario.Actualizar(comando.Nombre, comando.Apellido, comando.NombreDeUsuario, _gestionToken.EncryptSHA256(comando.Contrasena));
 

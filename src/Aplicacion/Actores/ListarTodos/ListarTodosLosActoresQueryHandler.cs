@@ -1,6 +1,7 @@
 ﻿using Aplicacion.Actores.Comun;
 using Dominio.Actores;
 using Dominio.Paises;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aplicacion.Actores.ListarTodos
 {
@@ -17,28 +18,22 @@ namespace Aplicacion.Actores.ListarTodos
 
         public async Task<ErrorOr<IReadOnlyList<RespuestaActor>>> Handle(ListarTodosLosActoresQuery request, CancellationToken cancellationToken)
         {
-            var actores = await _repositorioActor.ListarTodos();
 
-            var respuestaActores = new List<RespuestaActor>();
+            var actores = await _repositorioActor
+                .ListarTodos()
+                .Include(a => a.Pais) 
+                .ToListAsync(cancellationToken);
 
-            foreach (var actor in actores)
-            {
-                if (await _repositorioPais.ListarPorId(actor.IdPais) is not Pais pais)
-                {
-                    return Error.NotFound("Pais.NoEncontrado", "No se encontro el pais.");
-                }
 
-                var datosActor = new RespuestaActor(
+            var respuestaActores = actores.Select(actor =>  new RespuestaActor(
                     actor.Id.Valor,
                     actor.Nombre,
                     actor.Apellido,
-                    pais.Nombre
-                );
-
-                respuestaActores.Add( datosActor );
-            }
+                    actor.Pais!.Nombre
+            )).ToList();
 
             return respuestaActores;
         }
+
     }
 }

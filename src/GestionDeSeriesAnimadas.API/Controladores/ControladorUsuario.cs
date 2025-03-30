@@ -1,7 +1,9 @@
 ﻿
+using Aplicacion.Paises.ListarConFiltros;
 using Aplicacion.Usuarios.Actualizar;
 using Aplicacion.Usuarios.Crear;
 using Aplicacion.Usuarios.Eliminar;
+using Aplicacion.Usuarios.ListarConFiltros;
 using Aplicacion.Usuarios.ListarPorId;
 using Aplicacion.Usuarios.ListarTodos;
 using GestionDeSeriesAnimadas.API.Controladores;
@@ -83,6 +85,17 @@ namespace GestionDeSeriesAnimadas.API.Controladores
 
             return resultadoDeActualizarListaTarea.Match(
                 resp => NoContent(),
+                errores => Problem(errores)
+            );
+        }
+
+        [HttpPost("lista-paginada")]
+        public async Task<IActionResult> ListarPorFiltro([FromBody] ListarConFiltrosUsuarioQuery comando)
+        {
+            var resultadoDeFiltrar = await _mediator.Send(comando);
+
+            return resultadoDeFiltrar.Match(
+                resp => Ok(resp),
                 errores => Problem(errores)
             );
         }

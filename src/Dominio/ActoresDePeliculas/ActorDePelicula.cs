@@ -16,6 +16,9 @@ namespace Dominio.ActoresDePeliculas
         public IdActor IdActor { get; private set; } = default!;
         public IdPelicula IdPelicula { get; private set; } = default!;
 
+        public Actor Actor { get; private set; } = default!;
+
+
         public ActorDePelicula() { }
 
         public ActorDePelicula(IdActorDePelicula id, IdActor idActor, IdPelicula idPelicula) : base(id)

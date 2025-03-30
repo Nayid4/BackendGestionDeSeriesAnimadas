@@ -1,4 +1,5 @@
-﻿using Dominio.Directores;
+﻿using Dominio.Actores;
+using Dominio.Directores;
 using Infraestructura.Persistencia.Repositorios;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,7 @@ namespace Infraestructura.Persistencia.Repositorios
         public RepositorioDirector(AplicacionContextoDb contexto) : base(contexto)
         {
         }
+
+        public IQueryable<Director> ListarTodosLosDirectores() => _dbSet.Include(t => t.Pais).OrderBy(t => t.FechaDeCreacion);
     }
 }

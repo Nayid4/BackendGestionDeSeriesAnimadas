@@ -1,6 +1,7 @@
 ﻿using Aplicacion.Generos.Comun;
 using Dominio.Genericos;
 using Dominio.Generos;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,14 @@ namespace Aplicacion.Generos.ListarTodos
 
         public async Task<ErrorOr<IReadOnlyList<RespuestaGenero>>> Handle(ListarTodosLosGenerosQuery request, CancellationToken cancellationToken)
         {
-            var generos = await _repositorioGenero.ListarTodos();
-
-            var respuestaGeneros = generos.Select(ge => 
+            var generos = await _repositorioGenero.ListarTodos()
+                .Select(ge => 
                 new RespuestaGenero(
                     ge.Id.Valor, 
                     ge.Nombre
-                )).ToList();
+                )).ToListAsync();
 
-            return respuestaGeneros;
+            return generos;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Aplicacion.Generos.Comun;
 using Aplicacion.Paises.Comun;
 using Dominio.Paises;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,15 @@ namespace Aplicacion.Paises.ListarTodos
 
         public async Task<ErrorOr<IReadOnlyList<RespuestaPais>>> Handle(ListarTodosLosPaisesQuery request, CancellationToken cancellationToken)
         {
-            var generos = await _repositorioPais.ListarTodos();
-
-            var respuestaPaises = generos.Select(ge => 
+            var paises = await _repositorioPais.ListarTodos()
+                .Select(ge => 
                 new RespuestaPais(
                     ge.Id.Valor, 
                     ge.Nombre
-                )).ToList();
+                ))
+                .ToListAsync(cancellationToken);
 
-            return respuestaPaises;
+            return paises;
         }
     }
 }

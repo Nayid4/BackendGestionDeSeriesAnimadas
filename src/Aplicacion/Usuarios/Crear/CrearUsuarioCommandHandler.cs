@@ -28,8 +28,11 @@ namespace Aplicacion.Usuarios.Crear
 
         public async Task<ErrorOr<Unit>> Handle(CrearUsuarioCommand comando, CancellationToken cancellationToken)
         {
+            if (await _repositorioUsuario.ListarPorNombreDeUsuario(comando.NombreDeUsuario) is Usuario usuario)
+            {
+                return Error.Conflict("Usuario.Encontrado", "Ya esta en uso ese nombre de usuario.");
+            }
 
-             
             var nuevoUsuario = new Usuario(
                 new IdUsuario(Guid.NewGuid()),
                 comando.Nombre,

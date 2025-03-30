@@ -14,6 +14,8 @@ namespace Dominio.GenerosDePeliculas
         public IdGenero IdGenero { get; private set; } = default!;
         public IdPelicula IdPelicula { get; private set; } = default!;
 
+        public Genero Genero { get; private set; } = default!;
+
         public GeneroDePelicula() { }
 
         public GeneroDePelicula(IdGeneroDePelicula id, IdGenero idGenero, IdPelicula idPelicula) : base(id)

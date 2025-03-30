@@ -1,8 +1,7 @@
-﻿using Aplicacion.Autores.Comun;
-using Aplicacion.Usuarios.Comun;
-using Dominio.Actores;
+﻿using Aplicacion.Usuarios.Comun;
 using Dominio.Paises;
 using Dominio.Usuarios;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aplicacion.Usuarios.ListarTodos
 {
@@ -19,17 +18,16 @@ namespace Aplicacion.Usuarios.ListarTodos
 
         public async Task<ErrorOr<IReadOnlyList<RespuestaUsuario>>> Handle(ListarTodosLosUsuariosQuery request, CancellationToken cancellationToken)
         {
-            var usuarios = await _repositorioUsuario.ListarTodos();
-
-            var respuestaActores = usuarios.Select(usuario => new RespuestaUsuario(
+            var usuarios = await _repositorioUsuario.ListarTodos()
+                .Select(usuario => new RespuestaUsuario(
                     usuario.Id.Valor,
                     usuario.Nombre,
                     usuario.Apellido,
-                    usuario.NombreDeUsuario,
-                    usuario.Contrasena
-                )).ToList();
+                    usuario.NombreDeUsuario
+                ))
+                .ToListAsync(cancellationToken);
 
-            return respuestaActores;
+            return usuarios;
         }
     }
 }

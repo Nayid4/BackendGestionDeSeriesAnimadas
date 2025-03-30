@@ -18,5 +18,10 @@ namespace Infraestructura.Persistencia.Repositorios
         {
             return await _dbSet.FirstOrDefaultAsync(u => u.NombreDeUsuario == nombreDeUsuario && u.Contrasena == contrasena);
         }
+
+        public async Task<Usuario?> ListarPorNombreDeUsuario(string nombreDeUsuario)
+        {
+            return await _dbSet.FirstOrDefaultAsync(u => u.NombreDeUsuario == nombreDeUsuario);
+        }
     }
 }

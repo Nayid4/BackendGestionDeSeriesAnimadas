@@ -35,25 +35,32 @@ namespace Infraestructura.Persistencia.Configuraciones
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.HasOne<Pais>()
+            builder.HasOne(t => t.Pais)
                 .WithMany()
-                .HasForeignKey(t => t.IdPais);
+                .HasForeignKey(t => t.IdPais)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne<Director>()
+            builder.HasOne(t => t.Director)
                 .WithMany()
-                .HasForeignKey(t => t.IdDirector);
+                .HasForeignKey(t => t.IdDirector)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasMany<GeneroDePelicula>()
+            builder.HasMany(t => t.Generos)
                 .WithOne()
-                .HasForeignKey(t => t.IdPelicula);
+                .HasForeignKey(t => t.IdPelicula)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany<ActorDePelicula>()
+            builder.HasMany(t => t.Actores)
                 .WithOne()
-                .HasForeignKey(t => t.IdPelicula);
+                .HasForeignKey(t => t.IdPelicula)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Property(t => t.FechaDeCreacion);
 
-            builder.Property(t => t.FechaDeActualizacion);
+            builder.Property(t => t.FechaDeCreacion)
+                .IsRequired();
+
+            builder.Property(t => t.FechaDeActualizacion)
+                .IsRequired();
         }
     }
 }

@@ -21,6 +21,8 @@ namespace Application.Servicios
 
             servicios.AddValidatorsFromAssemblyContaining<ApplicationAssemblyReference>();
 
+            servicios.AddHttpContextAccessor();
+
             servicios.AddScoped<IGestionToken, GestionToken>();
 
             return servicios;

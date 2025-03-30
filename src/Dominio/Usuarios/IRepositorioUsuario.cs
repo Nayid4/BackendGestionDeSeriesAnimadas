@@ -10,5 +10,6 @@ namespace Dominio.Usuarios
     public interface IRepositorioUsuario : IRepositorioGenerico<IdUsuario, Usuario>
     {
         Task<Usuario?> IniciarSesion(string nombreDeUsuario, string contrasena);
+        Task<Usuario?> ListarPorNombreDeUsuario(string nombreDeUsuario);
     }
 }
