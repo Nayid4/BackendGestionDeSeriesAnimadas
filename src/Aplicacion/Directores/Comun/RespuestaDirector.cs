@@ -10,6 +10,11 @@ namespace Aplicacion.Directores.Comun
         Guid Id,
         string Nombre,
         string Apellido,
-        string pais
+        RespuestaPais Pais
+    );
+
+    public record RespuestaPais(
+        Guid Id,
+        string Nombre
     );
 }

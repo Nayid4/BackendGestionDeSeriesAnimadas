@@ -35,12 +35,13 @@ namespace Infraestructura.Persistencia.Configuraciones
             builder.HasOne(t => t.Genero)
                 .WithMany()
                 .HasForeignKey(t => t.IdGenero)
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne<Pelicula>()
                 .WithMany()
                 .HasForeignKey(t => t.IdPelicula)
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             builder.Property(t => t.FechaDeCreacion);
 

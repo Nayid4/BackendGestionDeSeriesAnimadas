@@ -21,7 +21,7 @@ namespace Aplicacion.Generos.Actualizar
                 return Error.NotFound("Genero.NoEncontrado", "No se encontro el genero.");
             }
 
-            if (await _repositorioGenero.ListarPorNombre(comando.Nombre) is not Genero genero2)
+            if (await _repositorioGenero.ListarPorNombre(comando.Nombre) is Genero genero2 && !genero.Nombre.Equals(genero2.Nombre))
             {
                 return Error.Conflict("Genero.Encontrado", "Ya existe un genero con ese nombre.");
             }

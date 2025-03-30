@@ -21,7 +21,7 @@ namespace Aplicacion.Generos.Crear
 
         public async Task<ErrorOr<Unit>> Handle(CrearGeneroCommand comando, CancellationToken cancellationToken)
         {
-            if (await _repositorioGenero.ListarPorNombre(comando.Nombre) is not Genero genero)
+            if (await _repositorioGenero.ListarPorNombre(comando.Nombre) is Genero genero)
             {
                 return Error.Conflict("Genero.Encontrado","Ya existe un genero con ese nombre.");
             }

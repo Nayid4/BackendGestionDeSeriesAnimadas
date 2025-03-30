@@ -48,6 +48,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
 
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Crear([FromBody] CrearPeliculaCommand comando)
         {
             var resultadoDeCrear = await _mediator.Send(comando);

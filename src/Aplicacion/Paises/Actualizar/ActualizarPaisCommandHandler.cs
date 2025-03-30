@@ -22,7 +22,7 @@ namespace Aplicacion.Paises.Actualizar
                 return Error.NotFound("Pais.NoEncontrado", "No se encontro el pais.");
             }
 
-            if (await _repositorioPais.ListarPorNombre(comando.Nombre) is not Pais pais2)
+            if (await _repositorioPais.ListarPorNombre(comando.Nombre) is Pais pais2 && !pais.Nombre.Equals(pais.Nombre))
             {
                 return Error.Conflict("Pais.Encontrado", "Ya existe un pais con ese nombre.");
             }

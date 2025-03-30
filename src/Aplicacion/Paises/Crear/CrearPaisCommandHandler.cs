@@ -22,7 +22,7 @@ namespace Aplicacion.Paises.Crear
 
         public async Task<ErrorOr<Unit>> Handle(CrearPaisCommand comando, CancellationToken cancellationToken)
         {
-            if (await _repositorioPais.ListarPorNombre(comando.Nombre) is not Pais pais)
+            if (await _repositorioPais.ListarPorNombre(comando.Nombre) is Pais pais)
             {
                 return Error.Conflict("Pais.Encontrado","Ya existe un pais con ese nombre.");
             }

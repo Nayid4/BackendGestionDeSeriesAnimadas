@@ -35,15 +35,25 @@ namespace Infraestructura.Persistencia.Configuraciones
                 .HasMaxLength(50)
                 .IsRequired();
 
+            builder.Property(t => t.Resena)
+                .IsRequired();
+
+            builder.Property(t => t.ImagenDePortada)
+                .IsRequired();
+
+            builder.Property(t => t.CodigoDeTrailerEnYoutube)
+                .IsRequired();
+
             builder.HasOne(t => t.Pais)
                 .WithMany()
                 .HasForeignKey(t => t.IdPais)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
+
 
             builder.HasOne(t => t.Director)
                 .WithMany()
                 .HasForeignKey(t => t.IdDirector)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(t => t.Generos)
                 .WithOne()

@@ -29,7 +29,10 @@ namespace Aplicacion.Actores.ListarTodos
                     actor.Id.Valor,
                     actor.Nombre,
                     actor.Apellido,
-                    actor.Pais!.Nombre
+                    new RespuestaPais(
+                        actor.Pais!.Id.Valor,
+                        actor.Pais!.Nombre
+                    )
             )).ToList();
 
             return respuestaActores;

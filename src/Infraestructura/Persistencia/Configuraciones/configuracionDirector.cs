@@ -35,7 +35,9 @@ namespace Infraestructura.Persistencia.Configuraciones
 
             builder.HasOne(a => a.Pais)
                 .WithMany()
-                .HasForeignKey(a => a.IdPais);
+                .HasForeignKey(a => a.IdPais)
+                .OnDelete(DeleteBehavior.NoAction);
+
 
             builder.Property(t => t.FechaDeCreacion)
                 .IsRequired();

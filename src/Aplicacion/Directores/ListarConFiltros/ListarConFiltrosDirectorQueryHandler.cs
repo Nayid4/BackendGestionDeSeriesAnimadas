@@ -1,12 +1,8 @@
-﻿using Aplicacion.Actores.Comun;
+﻿
 using Aplicacion.comun.ListarDatos;
 using Aplicacion.Directores.Comun;
-using Aplicacion.Paises.Comun;
-using Aplicacion.Paises.ListarConFiltros;
-using Dominio.Actores;
 using Dominio.Directores;
-using Dominio.Paises;
-using Microsoft.EntityFrameworkCore;
+using System.IO;
 using System.Linq.Expressions;
 
 namespace Aplicacion.Directores.ListarConFiltros
@@ -42,11 +38,14 @@ namespace Aplicacion.Directores.ListarConFiltros
 
 
 
-            var resultado = directores.Select(actor => new RespuestaDirector(
-                    actor.Id.Valor,
-                    actor.Nombre,
-                    actor.Apellido,
-                    actor.Pais!.Nombre
+            var resultado = directores.Select(director => new RespuestaDirector(
+                    director.Id.Valor,
+                    director.Nombre,
+                    director.Apellido,
+                    new RespuestaPais(
+                        director.Pais!.Id.Valor,
+                        director.Pais!.Nombre
+                    )
             ));
 
             var listaDeDirectores = await ListaPaginada<RespuestaDirector>.CrearAsync(
@@ -55,7 +54,7 @@ namespace Aplicacion.Directores.ListarConFiltros
                     consulta.TamanoPagina
                 );
 
-            return listaDeDirectores;
+            return listaDeDirectores!;
 
         }
 

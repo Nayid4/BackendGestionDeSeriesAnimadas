@@ -29,7 +29,15 @@ namespace Aplicacion.Actores.ListarPorId
                 return Error.NotFound("Pais.NoEncontrado", "No se encontro el pais.");
             }
 
-            var respuesta = new RespuestaActor(actor.Id.Valor, actor.Nombre, actor.Apellido, pais.Nombre);
+            var respuesta = new RespuestaActor(
+                actor.Id.Valor, 
+                actor.Nombre, 
+                actor.Apellido,
+                new RespuestaPais(
+                    actor.Pais!.Id.Valor,
+                    actor.Pais!.Nombre
+                )
+            );
 
             return respuesta;
         }

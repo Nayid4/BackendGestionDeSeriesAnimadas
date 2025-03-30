@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructura.Persistencia.Migraciones
 {
     [DbContext(typeof(AplicacionContextoDb))]
-    [Migration("20250330030653_CreacionDeBaseDeDatos")]
-    partial class CreacionDeBaseDeDatos
+    [Migration("20250330075950_AjusteDeBaseDeDatos")]
+    partial class AjusteDeBaseDeDatos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,16 +73,11 @@ namespace Infraestructura.Persistencia.Migraciones
                     b.Property<Guid>("IdPelicula")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("PeliculaId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IdActor");
 
                     b.HasIndex("IdPelicula");
-
-                    b.HasIndex("PeliculaId");
 
                     b.ToTable("ActorDePeliculas");
                 });
@@ -156,16 +151,11 @@ namespace Infraestructura.Persistencia.Migraciones
                     b.Property<Guid>("IdPelicula")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("PeliculaId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IdGenero");
 
                     b.HasIndex("IdPelicula");
-
-                    b.HasIndex("PeliculaId");
 
                     b.ToTable("GeneroDePeliculas");
                 });
@@ -272,73 +262,77 @@ namespace Infraestructura.Persistencia.Migraciones
 
             modelBuilder.Entity("Dominio.Actores.Actor", b =>
                 {
-                    b.HasOne("Dominio.Paises.Pais", null)
+                    b.HasOne("Dominio.Paises.Pais", "Pais")
                         .WithMany()
                         .HasForeignKey("IdPais")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Pais");
                 });
 
             modelBuilder.Entity("Dominio.ActoresDePeliculas.ActorDePelicula", b =>
                 {
-                    b.HasOne("Dominio.Actores.Actor", null)
+                    b.HasOne("Dominio.Actores.Actor", "Actor")
                         .WithMany()
                         .HasForeignKey("IdActor")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Dominio.Peliculas.Pelicula", null)
-                        .WithMany()
+                        .WithMany("Actores")
                         .HasForeignKey("IdPelicula")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Peliculas.Pelicula", null)
-                        .WithMany("Actores")
-                        .HasForeignKey("PeliculaId");
+                    b.Navigation("Actor");
                 });
 
             modelBuilder.Entity("Dominio.Directores.Director", b =>
                 {
-                    b.HasOne("Dominio.Paises.Pais", null)
+                    b.HasOne("Dominio.Paises.Pais", "Pais")
                         .WithMany()
                         .HasForeignKey("IdPais")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Pais");
                 });
 
             modelBuilder.Entity("Dominio.GenerosDePeliculas.GeneroDePelicula", b =>
                 {
-                    b.HasOne("Dominio.Generos.Genero", null)
+                    b.HasOne("Dominio.Generos.Genero", "Genero")
                         .WithMany()
                         .HasForeignKey("IdGenero")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Dominio.Peliculas.Pelicula", null)
-                        .WithMany()
+                        .WithMany("Generos")
                         .HasForeignKey("IdPelicula")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Peliculas.Pelicula", null)
-                        .WithMany("Generos")
-                        .HasForeignKey("PeliculaId");
+                    b.Navigation("Genero");
                 });
 
             modelBuilder.Entity("Dominio.Peliculas.Pelicula", b =>
                 {
-                    b.HasOne("Dominio.Directores.Director", null)
+                    b.HasOne("Dominio.Directores.Director", "Director")
                         .WithMany()
                         .HasForeignKey("IdDirector")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Paises.Pais", null)
+                    b.HasOne("Dominio.Paises.Pais", "Pais")
                         .WithMany()
                         .HasForeignKey("IdPais")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Director");
+
+                    b.Navigation("Pais");
                 });
 
             modelBuilder.Entity("Dominio.Peliculas.Pelicula", b =>

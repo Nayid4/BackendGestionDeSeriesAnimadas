@@ -1,6 +1,5 @@
 ﻿using Aplicacion.Actores.Comun;
 using Aplicacion.comun.ListarDatos;
-using Aplicacion.Paises.Comun;
 using Aplicacion.Paises.ListarConFiltros;
 using Dominio.Actores;
 using Dominio.Paises;
@@ -44,7 +43,10 @@ namespace Aplicacion.Actores.ListarConFiltros
                     actor.Id.Valor,
                     actor.Nombre,
                     actor.Apellido,
-                    actor.Pais!.Nombre
+                    new RespuestaPais(
+                        actor.Pais!.Id.Valor,
+                        actor.Pais!.Nombre
+                    )
             ));
 
             var listaDeActores = await ListaPaginada<RespuestaActor>.CrearAsync(
@@ -53,7 +55,7 @@ namespace Aplicacion.Actores.ListarConFiltros
                     consulta.TamanoPagina
                 );
 
-            return listaDeActores;
+            return listaDeActores!;
 
         }
 

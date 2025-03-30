@@ -26,7 +26,7 @@ namespace Infraestructura.Persistencia.Configuraciones
                 .IsRequired();
 
             builder.Property(t => t.Contrasena)
-                .HasMaxLength(50)
+                .HasMaxLength(255)
                 .IsRequired();
 
             builder.Property(t => t.FechaDeCreacion)

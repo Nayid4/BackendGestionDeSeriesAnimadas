@@ -1,8 +1,5 @@
 ﻿using Aplicacion.Directores.Comun;
-using Aplicacion.Generos.Comun;
-using Aplicacion.Paises.Comun;
 using Dominio.Directores;
-using Dominio.Generos;
 using Dominio.Paises;
 
 namespace Aplicacion.Directores.ListarPorId
@@ -30,7 +27,15 @@ namespace Aplicacion.Directores.ListarPorId
                 return Error.NotFound("Pais.NoEncontrado", "No se encontro el pais.");
             }
 
-            var respuesta = new RespuestaDirector(director.Id.Valor, director.Nombre, director.Apellido, pais.Nombre);
+            var respuesta = new RespuestaDirector(
+                director.Id.Valor, 
+                director.Nombre, 
+                director.Apellido,
+                new RespuestaPais(
+                    director.Pais!.Id.Valor,
+                    director.Pais!.Nombre
+                )
+            );
 
             return respuesta;
         }

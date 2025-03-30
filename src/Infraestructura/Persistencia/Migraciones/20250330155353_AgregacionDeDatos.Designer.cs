@@ -4,6 +4,7 @@ using Infraestructura.Persistencia;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructura.Persistencia.Migraciones
 {
     [DbContext(typeof(AplicacionContextoDb))]
-    partial class AplicacionContextoDbModelSnapshot : ModelSnapshot
+    [Migration("20250330155353_AgregacionDeDatos")]
+    partial class AgregacionDeDatos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,8 +236,8 @@ namespace Infraestructura.Persistencia.Migraciones
 
                     b.Property<string>("Contrasena")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("FechaDeActualizacion")
                         .HasColumnType("datetime2");

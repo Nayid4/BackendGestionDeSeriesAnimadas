@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace GestionDeSeriesAnimadas.API.Controladores
 {
     [Route("autenticacion")]
-    [Authorize]
+    
     public class ControladorAutenticacion : ApiController
     {
         private readonly ISender _mediator;
@@ -30,6 +30,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
         }
 
         [HttpGet("refrescar-token")]
+        [Authorize]
         public async Task<IActionResult> RefescarToken()
         {
             var resultado = await _mediator.Send(new RefrescarTokenQuery());
@@ -41,6 +42,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
         }
 
         [HttpGet("datos-usuario")]
+        [Authorize]
         public async Task<IActionResult> ListarDatosUsuario()
         {
             var resultadoDeListarDatosUsuario = await _mediator.Send(new DatosUsuarioQuery());

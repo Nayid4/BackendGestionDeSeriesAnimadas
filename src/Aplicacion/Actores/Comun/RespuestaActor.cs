@@ -10,6 +10,11 @@ namespace Aplicacion.Actores.Comun
         Guid Id,
         string Nombre,
         string Apellido,
-        string Pais
+        RespuestaPais Pais
+    );
+
+    public record RespuestaPais(
+        Guid Id,
+        string Nombre
     );
 }

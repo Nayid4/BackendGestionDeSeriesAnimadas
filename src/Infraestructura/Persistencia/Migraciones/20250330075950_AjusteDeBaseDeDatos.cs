@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infraestructura.Persistencia.Migraciones
 {
     /// <inheritdoc />
-    public partial class CreacionDeBaseDeDatos : Migration
+    public partial class AjusteDeBaseDeDatos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -74,8 +74,7 @@ namespace Infraestructura.Persistencia.Migraciones
                         name: "FK_Actor_Pais_IdPais",
                         column: x => x.IdPais,
                         principalTable: "Pais",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -96,8 +95,7 @@ namespace Infraestructura.Persistencia.Migraciones
                         name: "FK_Director_Pais_IdPais",
                         column: x => x.IdPais,
                         principalTable: "Pais",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -121,14 +119,12 @@ namespace Infraestructura.Persistencia.Migraciones
                         name: "FK_Pelicula_Director_IdDirector",
                         column: x => x.IdDirector,
                         principalTable: "Director",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Pelicula_Pais_IdPais",
                         column: x => x.IdPais,
                         principalTable: "Pais",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -138,7 +134,6 @@ namespace Infraestructura.Persistencia.Migraciones
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdActor = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdPelicula = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PeliculaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaDeActualizacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -157,11 +152,6 @@ namespace Infraestructura.Persistencia.Migraciones
                         principalTable: "Pelicula",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ActorDePeliculas_Pelicula_PeliculaId",
-                        column: x => x.PeliculaId,
-                        principalTable: "Pelicula",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -171,7 +161,6 @@ namespace Infraestructura.Persistencia.Migraciones
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdGenero = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdPelicula = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PeliculaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaDeActualizacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -190,11 +179,6 @@ namespace Infraestructura.Persistencia.Migraciones
                         principalTable: "Pelicula",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GeneroDePeliculas_Pelicula_PeliculaId",
-                        column: x => x.PeliculaId,
-                        principalTable: "Pelicula",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -213,11 +197,6 @@ namespace Infraestructura.Persistencia.Migraciones
                 column: "IdPelicula");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActorDePeliculas_PeliculaId",
-                table: "ActorDePeliculas",
-                column: "PeliculaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Director_IdPais",
                 table: "Director",
                 column: "IdPais");
@@ -233,11 +212,6 @@ namespace Infraestructura.Persistencia.Migraciones
                 column: "IdPelicula");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GeneroDePeliculas_PeliculaId",
-                table: "GeneroDePeliculas",
-                column: "PeliculaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Pelicula_IdDirector",
                 table: "Pelicula",
                 column: "IdDirector");
@@ -246,22 +220,11 @@ namespace Infraestructura.Persistencia.Migraciones
                 name: "IX_Pelicula_IdPais",
                 table: "Pelicula",
                 column: "IdPais");
-
-            var adminId = Guid.NewGuid();
-            var fecha = DateTime.UtcNow;
-            var contrasenaHasheada = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9";
-
-            migrationBuilder.Sql($@"
-            INSERT INTO Usuarios (Id, Nombre, Apellido, NombreDeUsuario, Contrasena, FechaDeCreacion, FechaDeActualizacion)
-            VALUES ('{adminId}', 'Admin', 'User', 'admin', '{contrasenaHasheada}', '{fecha}', '{fecha}');
-        ");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DELETE FROM Usuarios WHERE NombreDeUsuario = 'admin';");
-
             migrationBuilder.DropTable(
                 name: "ActorDePeliculas");
 

@@ -1,11 +1,7 @@
 ﻿using Aplicacion.Directores.Comun;
-using Aplicacion.Generos.Comun;
-using Aplicacion.Paises.Comun;
-using Dominio.Actores;
 using Dominio.Directores;
 using Dominio.Paises;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
 
 namespace Aplicacion.Directores.ListarTodos
 {
@@ -32,7 +28,10 @@ namespace Aplicacion.Directores.ListarTodos
                     director.Id.Valor,
                     director.Nombre,
                     director.Apellido,
-                    director.Pais!.Nombre
+                    new RespuestaPais(
+                        director.Pais!.Id.Valor,
+                        director.Pais!.Nombre
+                    )
             )).ToList();
 
             return respuestaDirectores;
