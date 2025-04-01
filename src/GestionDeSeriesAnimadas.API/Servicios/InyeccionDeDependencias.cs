@@ -42,7 +42,9 @@ namespace GestionDeSeriesAnimadas.API.Servicios
                         "https://localhost:8500",
                         "https://localhost:80",
                         "https://frontend-gestion-de-series-animadas.vercel.app",
-                        "https://frontend-gestion-de-series-animadas-angular.vercel.app"
+                        "https://frontend-gestion-de-series-animadas-angular.vercel.app",
+                        "https://frontend-gestion-de-series-animadas-angular-2ijx8svoq.vercel.app",
+                        "https://frontend-gestion-de-series-animadas-git-876feb-nayids-projects.vercel.app"
                         );
                     policyBuilder.AllowAnyHeader();
                     policyBuilder.AllowAnyMethod();
