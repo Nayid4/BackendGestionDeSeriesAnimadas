@@ -31,8 +31,8 @@ namespace Aplicacion.Peliculas.ListarTodos
                 .ListarTodasLasPeliculas()
                 .Select(pelicula =>new RespuestaPelicula(
                         pelicula.Id.Valor,
-                        new RespuestaPais(pelicula.Id.Valor, pelicula.Pais!.Nombre),
-                        new RespuestaDirector(pelicula.Id.Valor, pelicula.Director!.Nombre),
+                        new RespuestaPais(pelicula.Pais!.Id.Valor, pelicula.Pais!.Nombre),
+                        new RespuestaDirector(pelicula.Director!.Id.Valor, pelicula.Director!.Nombre),
                         pelicula.Titulo,
                         pelicula.Resena,
                         pelicula.ImagenDePortada,
