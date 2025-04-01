@@ -9,8 +9,8 @@ namespace Aplicacion.Peliculas.Actualizar
 {
     public record ActualizarPeliculaCommand(
         Guid Id,
-        Guid IdPais,
-        Guid IdDirector,
+        ComandoPais Pais,
+        ComandoDirector Director,
         string Titulo,
         string Resena,
         string ImagenDePortada,

@@ -34,12 +34,12 @@ namespace Aplicacion.Peliculas.Actualizar
                 return Error.NotFound("Pelicula.NoEncontrada", "No se econtró la pelicula.");
             }
 
-            if (await _repositorioPais.ListarPorId(new IdPais(comando.IdPais)) is not Pais pais)
+            if (await _repositorioPais.ListarPorId(new IdPais(comando.Pais.Id)) is not Pais pais)
             {
                 return Error.NotFound("Pais.NoEncontrado", "No se econtró el pais.");
             }
 
-            if (await _repositorioDirector.ListarPorId(new IdDirector(comando.IdDirector)) is not Director director)
+            if (await _repositorioDirector.ListarPorId(new IdDirector(comando.Director.Id)) is not Director director)
             {
                 return Error.NotFound("Director.NoEncontrado", "No se econtró el director.");
             }

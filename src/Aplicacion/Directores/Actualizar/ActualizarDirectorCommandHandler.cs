@@ -24,7 +24,7 @@ namespace Aplicacion.Directores.Actualizar
                 return Error.NotFound("Director.NoEncontrado", "No se encontro el director.");
             }
 
-            if (await _repositorioPais.ListarPorId(new IdPais(comando.IdPais)) is not Pais pais)
+            if (await _repositorioPais.ListarPorId(new IdPais(comando.Pais.Id)) is not Pais pais)
             {
                 return Error.NotFound("Pais.NoEncontrado", "No se encontro el pais.");
             }

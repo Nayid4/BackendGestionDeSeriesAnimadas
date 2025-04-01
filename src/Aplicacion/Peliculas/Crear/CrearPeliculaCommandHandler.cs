@@ -31,12 +31,12 @@ namespace Aplicacion.Peliculas.Crear
 
         public async Task<ErrorOr<Unit>> Handle(CrearPeliculaCommand comando, CancellationToken cancellationToken)
         {
-            if (await _repositorioPais.ListarPorId(new IdPais(comando.IdPais)) is not Pais pais)
+            if (await _repositorioPais.ListarPorId(new IdPais(comando.Pais.Id)) is not Pais pais)
             {
                 return Error.NotFound("Pais.NoEncontrada", "No se econtró el pais.");
             }
 
-            if (await _repositorioDirector.ListarPorId(new IdDirector(comando.IdDirector)) is not Director director)
+            if (await _repositorioDirector.ListarPorId(new IdDirector(comando.Director.Id)) is not Director director)
             {
                 return Error.NotFound("Director.NoEncontrado", "No se econtró el director.");
             }
