@@ -44,6 +44,8 @@ namespace Aplicacion.Peliculas.Actualizar
                 return Error.NotFound("Director.NoEncontrado", "No se econtró el director.");
             }
 
+
+
             var listaActores = new List<ActorDePelicula>();
 
             foreach (var actor in comando.Actores)
