@@ -25,7 +25,7 @@ namespace Aplicacion.Actores.Actualizar
                 return Error.NotFound("Actor.NoEncontrado", "No se encontro el actor.");
             }
 
-            if (await _repositorioPais.ListarPorId(new IdPais(comando.IdPais)) is not Pais pais)
+            if (await _repositorioPais.ListarPorId(new IdPais(comando.Pais.Id)) is not Pais pais)
             {
                 return Error.NotFound("Pais.NoEncontrado", "No se encontro el pais.");
             }

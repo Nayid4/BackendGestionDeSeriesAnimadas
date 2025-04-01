@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace Aplicacion.Peliculas.Crear
 {
     public record CrearPeliculaCommand(
-        Guid IdPais,
-        Guid IdDirector,
+        ComandoPais Pais,
+        ComandoDirector Director,
         string Titulo,
         string Resena,
         string ImagenDePortada,

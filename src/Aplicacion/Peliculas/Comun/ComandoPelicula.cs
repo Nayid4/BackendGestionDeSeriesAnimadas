@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace Aplicacion.Peliculas.Comun
 {
+    public record ComandoDirector(
+        Guid Id
+    );
+
+    public record ComandoPais(
+        Guid Id
+    );
 
     public record ComandoActor(
         Guid Id

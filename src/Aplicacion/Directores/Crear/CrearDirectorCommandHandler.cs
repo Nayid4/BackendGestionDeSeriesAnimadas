@@ -26,7 +26,7 @@ namespace Aplicacion.Directores.Crear
         public async Task<ErrorOr<Unit>> Handle(CrearDirectorCommand comando, CancellationToken cancellationToken)
         {
 
-            if (await _repositorioPais.ListarPorId(new IdPais(comando.IdPais)) is not Pais pais)
+            if (await _repositorioPais.ListarPorId(new IdPais(comando.Pais.Id)) is not Pais pais)
             {
                 return Error.Conflict("Pais.NoEncontrado", "No se encontro el pais.");
             }
