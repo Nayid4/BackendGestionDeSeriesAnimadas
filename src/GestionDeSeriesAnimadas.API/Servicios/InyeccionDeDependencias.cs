@@ -48,6 +48,7 @@ namespace GestionDeSeriesAnimadas.API.Servicios
                         );
                     policyBuilder.AllowAnyHeader();
                     policyBuilder.AllowAnyMethod();
+                    policyBuilder.AllowCredentials();
                 });
                 
 
