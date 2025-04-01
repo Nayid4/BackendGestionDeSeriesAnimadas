@@ -29,7 +29,7 @@ namespace Aplicacion.Peliculas.Actualizar
         }
         public async Task<ErrorOr<Unit>> Handle(ActualizarPeliculaCommand comando, CancellationToken cancellationToken)
         {
-            if (await _repositorioPelicula.ListarPorId(new IdPelicula(comando.Id)) is not Pelicula pelicula)
+            if (await _repositorioPelicula.ListarPorIdPelicula(new IdPelicula(comando.Id)) is not Pelicula pelicula)
             {
                 return Error.NotFound("Pelicula.NoEncontrada", "No se econtró la pelicula.");
             }

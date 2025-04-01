@@ -7,6 +7,7 @@ using Dominio.GenerosDePeliculas;
 using Dominio.Paises;
 using Dominio.Peliculas;
 using Dominio.Primitivos;
+using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Aplicacion.Peliculas.ListarPorId
@@ -30,10 +31,11 @@ namespace Aplicacion.Peliculas.ListarPorId
 
         public async Task<ErrorOr<RespuestaPelicula>> Handle(ListarPorIdDePeliculaQuery consulta, CancellationToken cancellationToken)
         {
-            if (await _repositorioPelicula.ListarPorId(new IdPelicula(consulta.Id)) is not Pelicula pelicula)
+            if (await _repositorioPelicula.ListarPorIdPelicula(new IdPelicula(consulta.Id)) is not Pelicula pelicula)
             {
                 return Error.NotFound("Pelicula.NoEncontrada", "No se econtró la pelicula.");
             }
+
 
             var listaActores = new List<RespuestaActor>();
 
