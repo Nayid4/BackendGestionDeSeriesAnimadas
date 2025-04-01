@@ -71,18 +71,19 @@ namespace Dominio.Peliculas
 
         public void ActualizarGeneros(List<GeneroDePelicula> nuevosGeneros)
         {
-            var generosARemover = _generos.Except(nuevosGeneros).ToList();
-            var generosAAgregar = nuevosGeneros.Except(_generos).ToList();
+            var generosIds = nuevosGeneros.Select(g => g.IdGenero).ToHashSet();
 
-            foreach (var genero in generosARemover)
+            _generos.RemoveWhere(g => !generosIds.Contains(g.IdGenero));
+
+            foreach (var genero in nuevosGeneros)
             {
-                _generos.Remove(genero);
-            }
-            foreach (var genero in generosAAgregar)
-            {
-                _generos.Add(genero);
+                if (!_generos.Any(g => g.IdGenero == genero.IdGenero))
+                {
+                    _generos.Add(genero);
+                }
             }
         }
+
 
         public void AgregarActor(ActorDePelicula actor)
         {
@@ -104,17 +105,19 @@ namespace Dominio.Peliculas
 
         public void ActualizarActores(List<ActorDePelicula> nuevosActores)
         {
-            var actoresARemover = _actores.Except(nuevosActores).ToList();
-            var actoresAAgregar = nuevosActores.Except(_actores).ToList();
+            var actoresIds = nuevosActores.Select(a => a.IdActor).ToHashSet();
 
-            foreach (var actor in actoresARemover)
+            _actores.RemoveWhere(a => !actoresIds.Contains(a.IdActor));
+
+            foreach (var actor in nuevosActores)
             {
-                _actores.Remove(actor);
-            }
-            foreach (var actor in actoresAAgregar)
-            {
-                _actores.Add(actor);
+                if (!_actores.Any(a => a.IdActor == actor.IdActor))
+                {
+                    _actores.Add(actor);
+                }
             }
         }
+
+
     }
 }
