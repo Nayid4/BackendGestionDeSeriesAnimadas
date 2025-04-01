@@ -71,10 +71,17 @@ namespace Dominio.Peliculas
 
         public void ActualizarGeneros(List<GeneroDePelicula> nuevosGeneros)
         {
-            if (nuevosGeneros == null) throw new ArgumentNullException(nameof(nuevosGeneros));
+            var generosIds = nuevosGeneros.Select(g => g.IdGenero).ToHashSet();
 
-            _generos.Clear(); // Elimina todos los géneros actuales
-            _generos.UnionWith(nuevosGeneros); // Agrega los nuevos géneros
+            _generos.RemoveWhere(g => !generosIds.Contains(g.IdGenero));
+
+            foreach (var genero in nuevosGeneros)
+            {
+                if (!_generos.Any(g => g.IdGenero == genero.IdGenero))
+                {
+                    _generos.Add(genero);
+                }
+            }
         }
 
 
@@ -96,16 +103,20 @@ namespace Dominio.Peliculas
             }
         }
 
-        
-
         public void ActualizarActores(List<ActorDePelicula> nuevosActores)
         {
-            if (nuevosActores == null) throw new ArgumentNullException(nameof(nuevosActores));
+            var actoresIds = nuevosActores.Select(a => a.IdActor).ToHashSet();
 
-            _actores.Clear(); // Elimina todos los actores actuales
-            _actores.UnionWith(nuevosActores); // Agrega los nuevos actores
+            _actores.RemoveWhere(a => !actoresIds.Contains(a.IdActor));
+
+            foreach (var actor in nuevosActores)
+            {
+                if (!_actores.Any(a => a.IdActor == actor.IdActor))
+                {
+                    _actores.Add(actor);
+                }
+            }
         }
-
 
 
     }
